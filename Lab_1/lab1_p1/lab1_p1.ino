@@ -14,6 +14,7 @@ void loop() {
   // put your main code here, to run repeatedly:
   turnLeft();
   turnRight();
+  turn180();
   prizm.PRIZMEnd();
 
 }
@@ -30,4 +31,12 @@ void turnRight(){
   prizm.setMotorPowers(125,125);
   delay(3000);
 }
+void turn180(){
+  prizm.setMotorPowers(50,-50);
+  delay(1200);
+  prizm.setMotorPowers(125,125);
+  delay(6000);
+}
+
+
 
