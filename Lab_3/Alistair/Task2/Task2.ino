@@ -18,8 +18,8 @@
  */
 
 #include <Wire.h>  // include the PRIZM library in the sketch
-//#include <PRIZM.h>               // include the PRIZM library in the sketch
-//PRIZM prizm;                     // instantiate a PRIZM object “prizm” so we can use its functions
+#include <PRIZM.h>               // include the PRIZM library in the sketch
+PRIZM prizm;                     // instantiate a PRIZM object “prizm” so we can use its functions
 
 String inputString = "";         // a string to hold incoming data
 boolean stringComplete = false;  // whether the string is complete
@@ -52,27 +52,28 @@ void loop() {
       case 1:
         {
           outputString += "1";  // everytime we put the original cmd to our outputString, to tell Pi know we get the cmd
+          
           break;
         }
       // turn left
       case 2:
         {
           outputString += "2";  // everytime we put the original cmd to our outputString, to tell Pi know we get the cmd
-          //prizm.setMotorPowers(125,20);      // please note that here we hardcode the speed of the motor, you can adjust my code and transfer the speed value you want through the serial communication
+          prizm.setMotorPowers(125,20);      // please note that here we hardcode the speed of the motor, you can adjust my code and transfer the speed value you want through the serial communication
           break;
         }
       // turn right
       case 3:
         {
           outputString += "3";  // everytime we put the original cmd to our outputString, to tell Pi know we get the cmd
-          //prizm.setMotorPowers(20,125);      // please note that here we hardcode the speed of the motor, you can adjust my code and transfer the speed value you want through the serial communication
+          prizm.setMotorPowers(20,125);      // please note that here we hardcode the speed of the motor, you can adjust my code and transfer the speed value you want through the serial communication
           break;
         }
       // read sonic sensor connected to D3 on the controller
       case 4:
         {
           outputString += "4";  // everytime we put the original cmd to our outputString, to tell Pi know we get the cmd
-          //outputString += prizm.readSonicSensorCM(3); // please note that here we hardcode the port number of the sonic sensor, you can adjust the value to make it fits your robot
+          outputString += prizm.readSonicSensorCM(3); // please note that here we hardcode the port number of the sonic sensor, you can adjust the value to make it fits your robot
           // also, here we append the distance to the outputString so that we can send back to Pi
           break;
         }
@@ -80,62 +81,54 @@ void loop() {
       case 5:
         {
           outputString += "5";  // everytime we put the original cmd to our outputString, to tell Pi know we get the cmd
-          //prizm.setMotorPowers(125,125);
+          prizm.setMotorPowers(125,125);
           break;
         }
       // stop the motor
       case 6:
         {
-          outputString += "6";  // everytime we put the original cmd to our outputString, to tell Pi know we get the cmd
-          //prizm.setMotorPowers(0,0);
+          outputString += "6";  
+          prizm.setMotorPowers(0,0);
           break;
         }
       //move forward with motor power 50
       case 7:
         {
-          outputString += "7";  // everytime we put the original cmd to our outputString, to tell Pi know we get the cmd
-                                // prizm.setMotorPowers(50,50);
+          outputString += "7";    
+          prizm.setMotorPowers(50,50);
           break;
         }
       //move backward with motor power 50
       case 8:
         {
-          outputString += "8";  // everytime we put the original cmd to our outputString, to tell Pi know we get the cmd
-          //prizm.setMotorPowers(-50,-50);
+          outputString += "8";  
+          prizm.setMotorPowers(-50,-50);
           break;
         }
       //move forward with motor power 100
       case 9:
         {
-          outputString += "9";  // everytime we put the original cmd to our outputString, to tell Pi know we get the cmd
-          //prizm.setMotorPowers(100,100);
+          outputString += "9"; 
+          prizm.setMotorPowers(100,100);
           break;
         }
       //move backward with motor power 100
       case 10:
         {
-          outputString += "10";  // everytime we put the original cmd to our outputString, to tell Pi know we get the cmd
-          //prizm.setMotorPowers(-100,-100);
+          outputString += "10";  
+          prizm.setMotorPowers(-100,-100);
           break;
         }
       //return distance with the ultrasonic sensor in cm
       case 11:
         {
-          outputString += "11";  // everytime we put the original cmd to our outputString, to tell Pi know we get the cmd
-          //outputString += prizm.readSonicSensorCM(3); // please note that here we hardcode the port number of the sonic sensor, you can adjust the value to make it fits your robot
+          outputString += "11";  
+          utputString += prizm.readSonicSensorCM(3); 
           outputString += " cm";
           break;
         }
-      //ask user to for motor power
+      //set motor power with user input
       case 12:
-        {
-          outputString += "12";  // everytime we put the original cmd to our outputString, to tell Pi know we get the cmd
-          outputString += "Please enter the motor power you want to set (0-100): ";
-          break;
-        }
-        //got a little carried away with the test cases
-      //set motor power based on user input in 12
-      case 13:
         {
           // Wait for the motor power input
           while (Serial.available() == 0) {
@@ -148,7 +141,7 @@ void loop() {
           if (motorPower >= 0 && motorPower <= 100) {
             outputString += "13 Motor power set to: ";
             outputString += motorPower;
-            //prizm.setMotorPowers(motorPower, motorPower);  // Uncomment this to set motor power
+            prizm.setMotorPowers(motorPower, motorPower);  // Uncomment this to set motor power
           } else {
             outputString += "13 Invalid motor power. Enter a value between 0 and 100.";
           }
