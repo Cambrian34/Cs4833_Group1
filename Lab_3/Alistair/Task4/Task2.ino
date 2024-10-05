@@ -95,7 +95,7 @@ void loop() {
       case 7:
         {
           outputString += "7";    
-          prizm.setMotorPowers(50,50);
+          prizm.setMotorPowers(5,5);
           break;
         }
       //move backward with motor power 50
@@ -150,6 +150,7 @@ void loop() {
           outputString = "";             // Clear the output string for the next command
           break;
         }
+        // case13 is for the code to get 
       //default case
       default:
         {
