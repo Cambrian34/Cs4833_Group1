@@ -5,7 +5,7 @@ import time
 
 # make use the port is correct
 #port = "/dev/ttyUSB0"
-port = "/dev/cu.usbserial-0001"
+port = "/dev/ttyUSB0"
 # we use baudrate 9600 by default and you can change it
 # if you change the baudrate, make sure you conduct the same change on your controller
 ser = serial.Serial(port, baudrate=9600, timeout=1)
@@ -17,7 +17,7 @@ def cmdSend(ser, cmd):
     # our msg must append a newline symbol, because that symbol is used for controller to check whether the cmd is fully received
     msg = str(cmd) + "\n"
     
-    print(f"Sending: {msg.strip()}")  # Debugging: See what’s being sent
+    #print(f"Sending: {msg.strip()}")  # Debugging: See what’s being sent
 
     # encode the msg before sending
     ser.write(msg.encode())
@@ -77,7 +77,7 @@ print(ack)
 time.sleep(1)
 ack = cmdSend(ser, 5)
 # check the output we get from the controller
-print("you should be able to receive a single digit: 5")
+print("you should be able to receive a single digit: 5  ")
 print(ack)
 
 
@@ -85,7 +85,7 @@ print(ack)
 ### Warning: To test this, make sure your sonic sensor is connected to D3 of the controller
 
 # cmd 4 is read sonic sensor cmd
-ack = cmdSend(ser, 13)
+ack = cmdSend(ser, 12)
 
 # check the output we get from the controller
 print("Arduino is now waiting for motor power input...")
@@ -102,11 +102,11 @@ ser.write(motor_power.encode())  # Send motor power directly to Arduino
 
 # Wait for Arduino response
 ack = ser.readline().decode("utf-8").strip()
-print(f"Motor power set: {ack}")
+#print(f"Motor power set: {ack}")
 
 
 # wait for 1 second and send cmd 5, which is to break the motor
-time.sleep(1)
+time.sleep(2)
 ack = cmdSend(ser, 5)
 # check the output we get from the controller
 print("you should be able to receive a single digit: 5")

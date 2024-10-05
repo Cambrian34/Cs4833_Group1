@@ -29,8 +29,8 @@ int cmd = 0;         // an integer to store the cmd
 String cmdStr = "";  // a string to store the cmd
 
 void setup() {
-  //prizm.PrizmBegin();            // start prizm
-  //prizm.setMotorInvert(1,1);     // invert the direction of DC Motor 1 to harmonize the direction of opposite facing drive motors
+  prizm.PrizmBegin();            // start prizm
+  prizm.setMotorInvert(1,1);     // invert the direction of DC Motor 1 to harmonize the direction of opposite facing drive motors
 
   Serial.begin(9600);  // initialize serial:
 
@@ -122,8 +122,8 @@ void loop() {
       //return distance with the ultrasonic sensor in cm
       case 11:
         {
-          outputString += "11";  
-          utputString += prizm.readSonicSensorCM(3); 
+          outputString += "11\n";  
+          outputString += prizm.readSonicSensorCM(3); 
           outputString += " cm";
           break;
         }
