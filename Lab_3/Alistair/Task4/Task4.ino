@@ -91,7 +91,7 @@ void loop() {
           prizm.setMotorPowers(0,0);
           break;
         }
-      //move forward with motor power 50
+      //move forward with motor power 5
       case 7:
         {
           outputString += "7";    
@@ -150,7 +150,29 @@ void loop() {
           outputString = "";             // Clear the output string for the next command
           break;
         }
-        // case13 is for the code to get 
+        // case13 is for the code to turn the robot 180 degree
+      case 13:
+        {
+          outputString += "13";  // everytime we put the original cmd to our outputString, to tell Pi know we get the cmd
+          prizm.setMotorPowers(50,-50);  // please note that here we hardcode the speed of the motor, you can adjust my code and transfer the speed value you want through the serial communication
+          delay(1200);  // delay 1s to make sure the robot turns 180 degree
+          prizm.setMotorPowers(125,125);  // stop the robot
+          break;
+        }
+        //turn left slowly with 5
+      case 14:
+        {
+          outputString += "14";  // everytime we put the original cmd to our outputString, to tell Pi know we get the cmd
+          prizm.setMotorPowers(5,-5);  // please note that here we hardcode the speed of the motor, you can adjust my code and transfer the speed value you want through the serial communication
+          break;
+        }
+        //turn right slowly with 5
+      case 15:
+        {
+          outputString += "15";  // everytime we put the original cmd to our outputString, to tell Pi know we get the cmd
+          prizm.setMotorPowers(-5,5);  // please note that here we hardcode the speed of the motor, you can adjust my code and transfer the speed value you want through the serial communication
+          break;
+        }
       //default case
       default:
         {

@@ -50,7 +50,21 @@ def cmdSend(ser, cmd):
     # return the msg we get
     return ack    
 #thread 2
-def move_robot():
+
+
+
+#start the threads
+import threading
+#threading.Thread(target=check_color).start()
+
+
+#threading.Thread(target=move_robot).start()
+#move_robot()
+
+
+
+#version2 of the code
+def follow_the_line():
     port = "/dev/ttyUSB0"
     ser = serial.Serial(port, baudrate=9600, timeout=1)
     #*Control robot to follow color tape track
@@ -81,6 +95,8 @@ def move_robot():
             print("Color: ", color[value]) # print the color
             if color[value] == "Red":
                 print("Move forward")
+
+                #move forward slowly
                 ack = cmdSend(ser,7 )
                 print(ack)
                 print("t1")
@@ -95,29 +111,58 @@ def move_robot():
 
                 
             elif color[value] == "Yellow":
+                #call the follow the line sub function
                 print("Move forward")
+                #if the color is yellow move forward if the color is black turn left slightly and check the color again and if yellow move forward else turn right slightly and check the color again
+                ack = cmdSend(ser, 7)
+                print(ack)
+                time.sleep(0.1)
+        
+            elif color[value] == "Black":
+                #turn left slightly cmd 14
+                ack = cmdSend(ser, 14)
+                print(ack)
+                time.sleep(0.1)#to make sure the robot has turned
+                #check the color again
+                value = BP.get_sensor(BP.PORT_3)
+                print("Color: ", color[value])
+                if color[value] == "Yellow":
+                    #move forward
+                    ack = cmdSend(ser, 7)
+                    print(ack)
+                    time.sleep(0.1)
+                else:
+                    #turn right slightly
+                    ack = cmdSend(ser, 15)
+                    print(ack)
+                    time.sleep(0.1)
+                
+
+
 
 
                 
             elif color[value] == "Blue":
                 print("Stop")
+                #should i add something to make sure this only runs once
+                
                 ack = cmdSend(ser, 6)
                 print(ack)
-                time.sleep(1)
-                #turn around 180 degrees
+                time.sleep(0.5)
+                #turn around 180 degrees which is 13
+                ack = cmdSend(ser, 13)
+                print(ack)
+                time.sleep(0.5)
+                #move forward
+                ack = cmdSend(ser, 7)
+                print(ack)
+                time.sleep(0.1)
 
 
+
+            
         
         except brickpi3.SensorError as error:
             print(error)
 
-       
 
-
-#start the threads
-import threading
-#threading.Thread(target=check_color).start()
-
-
-#threading.Thread(target=move_robot).start()
-move_robot()
