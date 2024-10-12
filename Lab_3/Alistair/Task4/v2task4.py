@@ -77,6 +77,36 @@ def follow_the_line():
                     stop_robot()
                     break
                 move_forward()
+                time.sleep(0.1)
+
+            elif color_detected == "Black" or color_detected == "White" or color_detected == "Brown" or color_detected == "Green" : 
+                print("Black")
+                stop_robot()
+                time.sleep(0.5)
+                turn_left()
+                time.sleep(0.6)
+                if color_detected == "Yellow":
+                    print("Yellow")
+                    stop_robot()
+                    time.sleep(0.5)
+                    move_forward()  
+                    time.sleep(0.1)
+                else:
+                    print("Black")
+                    stop_robot()
+                    time.sleep(0.5)
+                    turn_right()
+                    #double the left turn to make it a right turn
+                    time.sleep(1.2)
+                    stop_robot()
+
+
+            
+            elif color_detected == "Yellow":
+                stop_robot()
+                time.sleep(0.2)
+                move_forward()
+                time.sleep(0.2)
                 
             
             elif color_detected == "Red":
