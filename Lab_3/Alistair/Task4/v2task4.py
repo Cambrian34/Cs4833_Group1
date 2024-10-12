@@ -36,7 +36,7 @@ def turn_right():
 
 def stop_robot():
     print("Stop")
-    ack = cmdSend(ser, 6)
+    ack = cmdSend(ser, 5)
     print(ack)
 
 def turn_around():
@@ -70,42 +70,28 @@ def follow_the_line():
             print("!!! Connected to the robot !!!")
             ser.readall()
             break    
-count = 0;           
-while True:
-        if color_detected == "Red":
-            if count == 1:
-                break
-            move_forward()
+    count = 0;           
+    while True:
+            if color_detected == "Blue":
+                if count == 1:
+                    stop_robot()
+                    break
+                move_forward()
+                
             
-        #line following logic
-        elif color_detected == "Yellow":
-            move_forward()
-            time.sleep(0.3)
-            if color_detected == "Black" and Counter == 0:
-                turn_left()
-                time.sleep(0.1)
-                Counter = 1
-            if color_detected == "Black" and Counter == 1:
-                turn_right()
-                time.sleep(0.2)
-                Counter = 0
-            
-            if color_detected == "Yellow":
+            elif color_detected == "Red":
+                stop_robot()
+                time.sleep(0.5)
+                turn_around()
+                count = 1
+                time.sleep(0.5)
                 move_forward()
                 time.sleep(0.1)
-                continue
-            else:
-                turn_right()
-                time.sleep(0.2)
-        elif color_detected == "Blue":
-            stop_robot()
-            time.sleep(0.5)
-            turn_around()
-            count = 1
-            time.sleep(0.5)
-            move_forward()
-            time.sleep(0.1)
 
-if __name__ == "__main__":
-    threading.Thread(target=check_color).start()
-    follow_the_line()
+
+#thread for checking the color
+color_thread = threading.Thread(target=check_color)
+color_thread.daemon = True
+color_thread.start()
+
+follow_the_line()
