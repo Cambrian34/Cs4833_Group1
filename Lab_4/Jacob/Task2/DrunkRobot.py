@@ -2,8 +2,12 @@
 import serial
 import time
 
-# Define port
+import SerialCommLibrary
+
+# Define port:
 port = "/dev/ttyUSB0"
+
+# Define baudrate:
 
 # Setup serial port
 ser = serial.Serial(port, baudrate=9600, timeout=1)
