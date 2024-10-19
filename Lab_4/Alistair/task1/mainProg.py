@@ -23,17 +23,17 @@ def upsonic():
             time.sleep(0.5)
             #print(getSonic)
             
-sonicthread = threading.Thread(target=upsonic)
-sonicthread.daemon = True
-sonicthread.start()
+#sonicthread = threading.Thread(target=upsonic)
+#sonicthread.daemon = True
+#sonicthread.start()
 
 #set timer for 2 minutes
 start_time = time.time()
 
 while time.time() - start_time < 120:
-    #check if sonic data is valid
-#    print("work " +sonicdata)
-    if sonicdata < 5:
+    getSonic = int(readSonicCM(3))
+    time.sleep(0.1)
+    if getSonic < 5:
         moveForward(50)
         time.sleep(1)
     elif(sonicdata > 5 ):

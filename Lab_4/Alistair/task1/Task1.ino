@@ -54,7 +54,7 @@ void loop() {
       // read sonic sensor connected to D3 on the controller
       case 4:
         {
-          outputString += "4";  // everytime we put the original cmd to our outputString, to tell Pi know we get the cmd
+          //outputString += "4";  // everytime we put the original cmd to our outputString, to tell Pi know we get the cmd
           //request port number from 
           //outputString += prizm.readSonicSensorCM(3); // please note that here we hardcode the port number of the sonic sensor, you can adjust the value to make it fits your robot
           // also, here we append the distance to the outputString so that we can send back to Pi
@@ -121,7 +121,7 @@ void loop() {
       //return distance with the ultrasonic sensor in cm
       case 11:
         {
-          outputString += "11\n";  // everytime we put the original cmd to our outputString, to tell Pi know we get the cmd
+          //outputString += "11\n";  // everytime we put the original cmd to our outputString, to tell Pi know we get the cmd
           //request port number from 
           //outputString += prizm.readSonicSensorCM(3); // please note that here we hardcode the port number of the sonic sensor, you can adjust the value to make it fits your robot
           // also, here we append the distance to the outputString so that we can send back to Pi
@@ -275,3 +275,4 @@ void serialEvent() {
     }
   }
 }
+

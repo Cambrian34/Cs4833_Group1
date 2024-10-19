@@ -55,7 +55,7 @@ def moveForward(power):
     print(ack)
     
     #timer for 1 seconds
-    time.sleep(1)
+    time.sleep(0.3)
     # Send the motor power as plain data, not as a command
     motor_power = str(power)+"\n"  # Send motor power value
     
@@ -75,7 +75,7 @@ def moveBack(power):
     print(ack)
     
     #timer for 1 seconds
-    time.sleep(1)
+    time.sleep(0.3)
     # Send the motor power as plain data, not as a command
     motor_power = str(-power)+"\n"  # Send motor power value
     
@@ -113,7 +113,7 @@ def turnRight(power):
     print(ack)
     
     #timer for 1 seconds
-    time.sleep(1)
+    time.sleep(0.3)
     # Send the motor power as plain data, not as a command
     motor_power = str(power)+"\n"  # Send motor power value
     
@@ -153,6 +153,7 @@ def readSonicIN(port):
     ack = ser.readline().decode("utf-8").strip()
     #print(f"Motor power set: {ack}")
     print(ack)
+    return ack
 
 def readSonicCM(port):
     print("Read Sonic CM")
@@ -172,6 +173,7 @@ def readSonicCM(port):
     ack = ser.readline().decode("utf-8").strip()
     #print(f"Motor power set: {ack}")
     print(ack)
+    return ack
 
 
 def check_color():
