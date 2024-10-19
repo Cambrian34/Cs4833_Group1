@@ -134,9 +134,42 @@ def turn_around():
 
 def readSonicIN(port):
     print("Read Sonic INCHES")
+    ack = cmdSend(ser, 11)
+    # check the output we get from the controller
+    print("Arduino is now waiting for port input...")
+    print(ack)
+    
+    #timer for 0.5 seconds
+    time.sleep(0.5)
+    # Send the motor power as plain data, not as a command
+    motor_power = port+"\n"  # Send motor power value
+    
+    ser.write(motor_power.encode())  # Send motor power directly to Arduino
+    
+    # Wait for Arduino response
+    ack = ser.readline().decode("utf-8").strip()
+    #print(f"Motor power set: {ack}")
+    print(ack)
 
 def readSonicCM(port):
     print("Read Sonic CM")
+    ack = cmdSend(ser, 4)
+    # check the output we get from the controller
+    print("Arduino is now waiting for port input...")
+    print(ack)
+    
+    #timer for 0.5 seconds
+    time.sleep(0.5)
+    # Send the motor power as plain data, not as a command
+    motor_power = port+"\n"  # Send motor power value
+    
+    ser.write(motor_power.encode())  # Send motor power directly to Arduino
+    
+    # Wait for Arduino response
+    ack = ser.readline().decode("utf-8").strip()
+    #print(f"Motor power set: {ack}")
+    print(ack)
+
 
 def check_color():
     global color_detected

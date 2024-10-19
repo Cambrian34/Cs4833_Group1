@@ -55,8 +55,25 @@ void loop() {
       case 4:
         {
           outputString += "4";  // everytime we put the original cmd to our outputString, to tell Pi know we get the cmd
-          outputString += prizm.readSonicSensorCM(3); // please note that here we hardcode the port number of the sonic sensor, you can adjust the value to make it fits your robot
+          //request port number from 
+          //outputString += prizm.readSonicSensorCM(3); // please note that here we hardcode the port number of the sonic sensor, you can adjust the value to make it fits your robot
           // also, here we append the distance to the outputString so that we can send back to Pi
+           while (Serial.available() == 0) {
+            // Wait until something is available on the serial line
+          }
+
+          String Portnumstr = Serial.readStringUntil('\n');  // Read until newline
+          int Portnum = Portnumstr.toInt();               // Convert the input to an integer
+          if(Portnum>0){
+          outputString += prizm.readSonicSensorCM(Portnum); // please note that here we hardcode the port number of the sonic sensor, you can adjust the value to make it fits your robot
+         
+          } else {
+            outputString += "4 Invalid port number.";
+          }
+
+          Serial.println(outputString);  // Send back the result
+          outputString = "";             // Clear the output string for the next command
+  
           break;
         }
       // break the motor
@@ -104,10 +121,26 @@ void loop() {
       //return distance with the ultrasonic sensor in cm
       case 11:
         {
-          outputString += "11\n";  
-          outputString += prizm.readSonicSensorCM(3); 
-          outputString += " cm";
-          break;
+          outputString += "11\n";  // everytime we put the original cmd to our outputString, to tell Pi know we get the cmd
+          //request port number from 
+          //outputString += prizm.readSonicSensorCM(3); // please note that here we hardcode the port number of the sonic sensor, you can adjust the value to make it fits your robot
+          // also, here we append the distance to the outputString so that we can send back to Pi
+           while (Serial.available() == 0) {
+            // Wait until something is available on the serial line
+          }
+
+          String Portnumstr = Serial.readStringUntil('\n');  // Read until newline
+          int Portnum = Portnumstr.toInt();               // Convert the input to an integer
+          if(Portnum>0){
+          outputString += prizm.readSonicSensorCM(Portnum); // please note that here we hardcode the port number of the sonic sensor, you can adjust the value to make it fits your robot
+         
+          } else {
+            outputString += "4 Invalid port number.";
+          }
+
+          Serial.println(outputString);  // Send back the result
+          outputString = "";             // Clear the output string for the next command
+  
         }
       //set motor power with user input
       case 12:
