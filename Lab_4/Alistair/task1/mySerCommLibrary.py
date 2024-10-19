@@ -12,6 +12,9 @@ import threading
 #port = "/dev/ttyUSB0"
 #ser = serial.Serial(port, baudrate=9600, timeout=1)
 
+##Turn into a class
+
+
 def  initSerComm(baudrate):
     global ser
     global port 
@@ -54,7 +57,7 @@ def moveForward(power):
     #timer for 1 seconds
     time.sleep(1)
     # Send the motor power as plain data, not as a command
-    motor_power = power+"\n"  # Send motor power value
+    motor_power = str(power)+"\n"  # Send motor power value
     
     ser.write(motor_power.encode())  # Send motor power directly to Arduino
     
@@ -74,7 +77,7 @@ def moveBack(power):
     #timer for 1 seconds
     time.sleep(1)
     # Send the motor power as plain data, not as a command
-    motor_power = (-power)+"\n"  # Send motor power value
+    motor_power = str(-power)+"\n"  # Send motor power value
     
     ser.write(motor_power.encode())  # Send motor power directly to Arduino
     
@@ -93,7 +96,7 @@ def turnLeft(power):
     #timer for 1 seconds
     time.sleep(1)
     # Send the motor power as plain data, not as a command
-    motor_power = power+"\n"  # Send motor power value
+    motor_power = str(power)+"\n"  # Send motor power value
     
     ser.write(motor_power.encode())  # Send motor power directly to Arduino
     
@@ -112,7 +115,7 @@ def turnRight(power):
     #timer for 1 seconds
     time.sleep(1)
     # Send the motor power as plain data, not as a command
-    motor_power = power+"\n"  # Send motor power value
+    motor_power = str(power)+"\n"  # Send motor power value
     
     ser.write(motor_power.encode())  # Send motor power directly to Arduino
     
@@ -142,7 +145,7 @@ def readSonicIN(port):
     #timer for 0.5 seconds
     time.sleep(0.5)
     # Send the motor power as plain data, not as a command
-    motor_power = port+"\n"  # Send motor power value
+    motor_power = str(port)+"\n"  # Send motor power value
     
     ser.write(motor_power.encode())  # Send motor power directly to Arduino
     
@@ -161,7 +164,7 @@ def readSonicCM(port):
     #timer for 0.5 seconds
     time.sleep(0.5)
     # Send the motor power as plain data, not as a command
-    motor_power = port+"\n"  # Send motor power value
+    motor_power = str(port)+"\n"  # Send motor power value
     
     ser.write(motor_power.encode())  # Send motor power directly to Arduino
     
