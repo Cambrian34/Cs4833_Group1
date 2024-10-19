@@ -162,7 +162,7 @@ def readSonicCM(port):
     print(ack)
     
     #timer for 0.5 seconds
-    time.sleep(0.4)
+    time.sleep(0.5)
     # Send the motor power as plain data, not as a command
     motor_power = str(port)+"\n"  # Send motor power value
     
