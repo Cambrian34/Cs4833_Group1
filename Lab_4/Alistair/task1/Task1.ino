@@ -119,11 +119,11 @@ void loop() {
 
           String motorPowerStr = Serial.readStringUntil('\n');  // Read until newline
           int motorPower = motorPowerStr.toInt();               // Convert the input to an integer
-
-          if (motorPower >= 0 && motorPower <= 100) {
+//can modify to have back and forward motor power
+          if (motorPower >= (-100) && motorPower <= 100) {
             outputString += "13 Motor power set to: ";
             outputString += motorPower;
-            prizm.setMotorPowers(motorPower, motorPower);  // Uncomment this to set motor power
+            prizm.setMotorPowers(motorPower, motorPower); 
           } else {
             outputString += "13 Invalid motor power. Enter a value between 0 and 100.";
           }
@@ -153,6 +153,52 @@ void loop() {
         {
           outputString += "15";  // everytime we put the original cmd to our outputString, to tell Pi know we get the cmd
           prizm.setMotorPowers(-5,5);  // please note that here we hardcode the speed of the motor, you can adjust my code and transfer the speed value you want through the serial communication
+          break;
+        }
+        //turn left with given power
+      case 16:
+        {
+          // Wait for the motor power input
+          while (Serial.available() == 0) {
+            // Wait until something is available on the serial line
+          }
+
+          String motorPowerStr = Serial.readStringUntil('\n');  // Read until newline
+          int motorPower = motorPowerStr.toInt();               // Convert the input to an integer
+
+          if (motorPower >= 0 && motorPower <= 100) {
+            outputString += "16 Motor power set to: ";
+            outputString += motorPower;
+            prizm.setMotorPowers(motorPower, 0); 
+          } else {
+            outputString += "16 Invalid motor power. Enter a value between 0 and 100.";
+          }
+
+          Serial.println(outputString);  // Send back the result
+          outputString = "";             // Clear the output string for the next command
+          break;
+        }
+        //turn right with given power
+      case 17:
+        {
+          // Wait for the motor power input
+          while (Serial.available() == 0) {
+            // Wait until something is available on the serial line
+          }
+
+          String motorPowerStr = Serial.readStringUntil('\n');  // Read until newline
+          int motorPower = motorPowerStr.toInt();               // Convert the input to an integer
+
+          if (motorPower >= 0 && motorPower <= 100) {
+            outputString += "17 Motor power set to: ";
+            outputString += motorPower;
+            prizm.setMotorPowers(0, motorPower); 
+          } else {
+            outputString += "17 Invalid motor power. Enter a value between 0 and 100.";
+          }
+
+          Serial.println(outputString);  // Send back the result
+          outputString = "";             // Clear the output string for the next command
           break;
         }
       //default case

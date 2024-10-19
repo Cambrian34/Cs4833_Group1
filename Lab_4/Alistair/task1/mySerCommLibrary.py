@@ -1,22 +1,37 @@
 import time
-import brickpi3
+#import brickpi3
 import serial
 import threading
 
-BP = brickpi3.BrickPi3()
+#BP = brickpi3.BrickPi3()
 
-BP.set_sensor_type(BP.PORT_3, BP.SENSOR_TYPE.EV3_COLOR_COLOR)
-color = ["none", "Black", "Blue", "Green", "Yellow", "Red", "White", "Brown"]
+#BP.set_sensor_type(BP.PORT_3, BP.SENSOR_TYPE.EV3_COLOR_COLOR)
+#color = ["none", "Black", "Blue", "Green", "Yellow", "Red", "White", "Brown"]
 
-color_detected = "none"
-port = "/dev/ttyUSB0"
-ser = serial.Serial(port, baudrate=9600, timeout=1)
+#color_detected = "none"
+#port = "/dev/ttyUSB0"
+#ser = serial.Serial(port, baudrate=9600, timeout=1)
 
 def  initSerComm(baudrate):
     global ser
     global port 
     port = "/dev/ttyUSB0"
     ser = serial.Serial(port, baudrate=baudrate, timeout=1)
+    #starts handshaking
+    print("*** Press the GREEN button to start the robot ***")
+    time.sleep(2)
+    
+    while True:
+        print("--- Sending out handshaking signal ---")
+        ack = cmdSend(ser, 1)
+        if not ack:
+            print("*** Try again ***")
+            print("*** Press the GREEN button to start the robot ***")
+
+        else:
+            print("!!! Connected to the robot !!!")
+            ser.readall()
+            break  
 
 
 
@@ -27,19 +42,84 @@ def cmdSend(ser, cmd):
     ack = ack_origin[:-2].decode("utf-8")
     return ack
 
-def move_Forward(power):
+def moveForward(power):
     print("Move forward")
-    ack = cmdSend(ser, 7)
+    
+    ack = cmdSend(ser, 12)
+    
+    # check the output we get from the controller
+    print("Arduino is now waiting for motor power input...")
+    print(ack)
+    
+    #timer for 1 seconds
+    time.sleep(1)
+    # Send the motor power as plain data, not as a command
+    motor_power = power+"\n"  # Send motor power value
+    
+    ser.write(motor_power.encode())  # Send motor power directly to Arduino
+    
+    # Wait for Arduino response
+    ack = ser.readline().decode("utf-8").strip()
+    #print(f"Motor power set: {ack}")
     print(ack)
 
-def turn_left():
+def moveBack(power):
+    print("Move backward")
+    ack = cmdSend(ser, 12)
+    
+    # check the output we get from the controller
+    print("Arduino is now waiting for motor power input...")
+    print(ack)
+    
+    #timer for 1 seconds
+    time.sleep(1)
+    # Send the motor power as plain data, not as a command
+    motor_power = (-power)+"\n"  # Send motor power value
+    
+    ser.write(motor_power.encode())  # Send motor power directly to Arduino
+    
+    # Wait for Arduino response
+    ack = ser.readline().decode("utf-8").strip()
+    #print(f"Motor power set: {ack}")
+    print(ack)
+
+def turnLeft(power):
     print("Turn left")
-    ack = cmdSend(ser, 14)
+    ack = cmdSend(ser, 16)
+    # check the output we get from the controller
+    print("Arduino is now waiting for motor power input...")
+    print(ack)
+    
+    #timer for 1 seconds
+    time.sleep(1)
+    # Send the motor power as plain data, not as a command
+    motor_power = power+"\n"  # Send motor power value
+    
+    ser.write(motor_power.encode())  # Send motor power directly to Arduino
+    
+    # Wait for Arduino response
+    ack = ser.readline().decode("utf-8").strip()
+    #print(f"Motor power set: {ack}")
     print(ack)
 
-def turn_right():
+def turnRight(power):
     print("Turn right")
-    ack = cmdSend(ser, 15)
+    ack = cmdSend(ser, 17)
+    # check the output we get from the controller
+    print("Arduino is now waiting for motor power input...")
+    print(ack)
+    
+    #timer for 1 seconds
+    time.sleep(1)
+    # Send the motor power as plain data, not as a command
+    motor_power = power+"\n"  # Send motor power value
+    
+    ser.write(motor_power.encode())  # Send motor power directly to Arduino
+    
+    # Wait for Arduino response
+    ack = ser.readline().decode("utf-8").strip()
+    #print(f"Motor power set: {ack}")
+
     print(ack)
 
 def stop_robot():
@@ -53,7 +133,10 @@ def turn_around():
     print(ack)
 
 def readSonicIN(port):
-    print("Read Sonic IN")
+    print("Read Sonic INCHES")
+
+def readSonicCM(port):
+    print("Read Sonic CM")
 
 def check_color():
     global color_detected
