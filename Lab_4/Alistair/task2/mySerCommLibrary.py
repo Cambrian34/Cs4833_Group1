@@ -21,7 +21,7 @@ class SerialComm:
 
         while True:
             print("--- Sending out handshaking signal ---")
-            ack = self.cmdSend(self.ser, 1)
+            ack = self.cmdSend(1)
             if not ack:
                 print("*** Try again ***")
                 print("*** Press the GREEN button to start the robot ***")
