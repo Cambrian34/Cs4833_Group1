@@ -1,6 +1,11 @@
+
 from mySerCommLibrary import *
 
-initSerComm(9600)
+#baudrate=9600, port="/dev/ttyUSB0", timeout=1
+
+lib =mySerCommLibrary(9600, "/dev/ttyUSB0", 1)
+
+lib.initSerComm()
 
 #Implement DrunkRobot program
 # Move forward until 5cm before an obstacle;
@@ -23,28 +28,28 @@ start_time = time.time()
 while time.time() - start_time < 120:
     #check if sonic data is valid
 #    print("work " +sonicdata)
-    getSonic = int(readSonicCM(3))
+    getSonic = int(lib.readSonicCM(3))
     #time.sleep(0.2)
     if getSonic > 15:
-        moveForward(10)
+        lib.moveForward(10)
         #time.sleep(0.1)
     else:
         print("stop")
-        stop_robot()
+        lib.stop_robot()
         time.sleep(1)
-        moveBack(15)
-        if(int(readSonicCM(3))== 15):
-            stop_robot()
+        lib.moveBack(15)
+        if(int( lib.readSonicCM(3))== 15):
+            lib.stop_robot()
         time.sleep(0.5) 
         if(random.choice([1,0])):
-            turnRight(random.randint(10,50))
+            lib.turnRight(random.randint(10,50))
             time.sleep (0.5)
-            stop_robot()
+            lib.stop_robot()
             
         else:
-            turnLeft(random.randint(10,50))
+            lib.turnLeft(random.randint(10,50))
             time.sleep (0.5)
-            stop_robot()
+            lib.stop_robot()
             
 print("End")  
-stop_robot()
+lib.stop_robot()
