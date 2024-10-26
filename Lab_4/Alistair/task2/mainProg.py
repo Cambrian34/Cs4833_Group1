@@ -1,9 +1,9 @@
-
+import mySerCommLibrary
 from mySerCommLibrary import *
 
 #baudrate=9600, port="/dev/ttyUSB0", timeout=1
 
-lib =mySerCommLibrary(9600, "/dev/ttyUSB0", 1)
+lib = mySerCommLibrary.SerialComm(9600, "/dev/ttyUSB0", 1)
 
 lib.initSerComm()
 
