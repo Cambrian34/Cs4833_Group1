@@ -32,10 +32,10 @@ while time.time() - start_time < 120:
         print("stop")
         stop_robot()
         time.sleep(1)
-        moveBack(10)
-        if(int(readSonicCM(3))== 10):
+        moveBack(15)
+        if(int(readSonicCM(3))== 15):
             stop_robot()
-             
+        time.sleep(0.5) 
         if(random.choice([1,0])):
             turnRight(random.randint(10,50))
             time.sleep (0.5)
@@ -46,5 +46,5 @@ while time.time() - start_time < 120:
             time.sleep (0.5)
             stop_robot()
             
-        #time.sleep(0.5)
 print("End")  
+stop_robot()
