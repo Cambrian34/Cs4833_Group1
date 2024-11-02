@@ -234,6 +234,26 @@ void loop() {
           outputString = "";             // Clear the output string for the next command
           break;
         }
+        case 18:
+        {
+          //blink the green led
+          outputString += "18";  // everytime we put the original cmd to our outputString, to tell Pi know we get the cmd
+          prizm.setGreenLED(HIGH);    // turn the RED LED on
+          delay(1000);              // wait here for 1000ms (1 second)
+          prizm.setGreenLED(LOW);     // turn the RED LED off
+          delay(1000);              // wait here for 1000ms (1 second)
+
+        }
+        case 19:
+        {
+          //blink the red led
+          outputString += "19";  // everytime we put the original cmd to our outputString, to tell Pi know we get the cmd
+          prizm.setRedLED(HIGH);    // turn the RED LED on
+          delay(1000);              // wait here for 1000ms (1 second)
+          prizm.setRedLED(LOW);     // turn the RED LED off
+          delay(1000);              // wait here for 1000ms (1 second)
+
+        }
       //default case
       default:
         {
