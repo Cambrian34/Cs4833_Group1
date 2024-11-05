@@ -177,3 +177,6 @@ class SerialComm:
                 time.sleep(0.1)
             except brickpi3.SensorError as error:
                 print(error)
+
+
+    

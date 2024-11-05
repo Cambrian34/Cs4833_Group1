@@ -238,9 +238,9 @@ void loop() {
         {
           //blink the green led
           outputString += "18";  // everytime we put the original cmd to our outputString, to tell Pi know we get the cmd
-          prizm.setGreenLED(HIGH);    // turn the RED LED on
+          prizm.setGreenLED(HIGH);    // turn the Green LED on
           delay(1000);              // wait here for 1000ms (1 second)
-          prizm.setGreenLED(LOW);     // turn the RED LED off
+          prizm.setGreenLED(LOW);     // turn the Green LED off
           delay(1000);              // wait here for 1000ms (1 second)
 
         }
