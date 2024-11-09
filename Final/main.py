@@ -10,6 +10,7 @@ parked = False
 #thread for color detectioncolor_thread = threading.Thread(target=check_color)
 
 threading.Thread(target=lib.check_color).start()
+threading.Thread(target=lib.check_gyro).start()
 
 
 
@@ -33,7 +34,7 @@ while not parked:
     # TODO: check parking distance thread, an error where the thread and library call the arduino at same time coausing an erro that the arduino is busy,
     #ie a critical section problem
     #could solving this by using a semaphore or mutex
-    
+
 
     # stop and end program
 
