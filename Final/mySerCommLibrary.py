@@ -12,6 +12,7 @@ class SerialComm:
         self.color = ["none", "Black", "Blue", "Green", "Yellow", "Red", "White", "Brown"]
         self.BP = brickpi3.BrickPi3()
         self.BP.set_sensor_type(self.BP.PORT_3, self.BP.SENSOR_TYPE.EV3_COLOR_COLOR)
+        self.BP.set_sensor_type(self.BP.PORT_4, self.BP.SENSOR_TYPE.EV3_GYRO_ABS_DPS)
 
 
     def initSerComm(self):
@@ -174,6 +175,15 @@ class SerialComm:
             try:
                 value = self.BP.get_sensor(self.BP.PORT_3)
                 self.color_detected = self.color[value]
+                time.sleep(0.1)
+            except brickpi3.SensorError as error:
+                print(error)
+
+    def check_gyro(self):
+        while True:
+            try:
+                gyrovalues = self.BP.get_sensor(self.BP.PORT_4)
+                print(gyrovalues)
                 time.sleep(0.1)
             except brickpi3.SensorError as error:
                 print(error)
