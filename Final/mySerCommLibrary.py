@@ -8,11 +8,6 @@ class SerialComm:
 
         self.ser = serial.Serial(port, baudrate=baudrate, timeout=timeout)
 
-        self.color_detected = "none"
-        self.color = ["none", "Black", "Blue", "Green", "Yellow", "Red", "White", "Brown"]
-        self.BP = brickpi3.BrickPi3()
-        self.BP.set_sensor_type(self.BP.PORT_3, self.BP.SENSOR_TYPE.EV3_COLOR_COLOR)
-
 
     def initSerComm(self):
         #starts handshaking
@@ -168,6 +163,21 @@ class SerialComm:
         print(ack)
         return ack
 
+class Sensors:
+    def __init__(self):
+        self.color_detected = "none"
+        self.color = ["none", "Black", "Blue", "Green", "Yellow", "Red", "White", "Brown"]
+        self.BP = brickpi3.BrickPi3()
+
+        # Set Touch Sensor:
+        self.BP.set_sensor_type(self.BP.PORT_1, self.BP.SENSOR_TYPE.TOUCH)  # Configure for a touch sensor. If an EV3 touch sensor is connected, it will be configured for EV3 touch, otherwise it'll configured for NXT touch.
+
+        # Set Color Sensor:
+        self.BP.set_sensor_type(self.BP.PORT_3, self.BP.SENSOR_TYPE.EV3_COLOR_COLOR)
+
+        # Set Gyro Sensor:
+        self.BP.set_sensor_type(self.BP.PORT_4, self.BP.SENSOR_TYPE.EV3_GYRO_ABS_DPS)
+
 
     def check_color(self):
         while True:
@@ -178,5 +188,13 @@ class SerialComm:
             except brickpi3.SensorError as error:
                 print(error)
 
+    def check_touch(self):
+        touch = 0
+        while not touch:
+            try:
+                touch = self.BP.get_sensor(self.BP.PORT_1)
+            except brickpi3.SensorError:
+                pass
 
+        return
     
