@@ -75,7 +75,7 @@ class SerialComm:
 
     def turnLeft(self, power):
         print("Turn left")
-        ack = self.cmdSend(16)
+        ack = self.cmdSend(17)
         # check the output we get from the controller
         print("Arduino is now waiting for motor power input...")
         print(ack)
@@ -94,7 +94,7 @@ class SerialComm:
 
     def turnRight(self, power):
         print("Turn right")
-        ack = self.cmdSend(17)
+        ack = self.cmdSend(16)
         # check the output we get from the controller
         print("Arduino is now waiting for motor power input...")
         print(ack)
@@ -143,24 +143,25 @@ class SerialComm:
         return ack
 
     def readSonicCM(self, port):
-        print("Read Sonic CM")
+        # print("Read Sonic CM")
         ack = self.cmdSend(4)
         # check the output we get from the controller
-        print("Arduino is now waiting for port input...")
-        print(ack)
+        # print("Arduino is now waiting for port input...")
+        # print(ack)
 
         #timer for 0.5 seconds
         time.sleep(0.5)
-        # Send the motor power as plain data, not as a command
-        motor_power = str(port)+"\n"  # Send motor power value
+        # Send the port as plain data, not as a command
+        ser_port = str(port)+"\n"  # Send port value
 
-        self.ser.write(motor_power.encode())  # Send motor power directly to Arduino
+        self.ser.write(ser_port.encode())  # Send port directly to Arduino
 
         # Wait for Arduino response
         ack = self.ser.readline().decode("utf-8").strip()
         #print(f"Motor power set: {ack}")
-        print(ack)
-        return ack
+
+        print("Sonic Distance (CM):", int(ack))
+        return int(ack)
 
 class Sensors:
     def __init__(self):
