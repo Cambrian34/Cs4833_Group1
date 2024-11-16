@@ -44,7 +44,11 @@ while not parked:
     # TODO: check parking distance thread, an error where the thread and library call the arduino at same time coausing an erro that the arduino is busy,
     #ie a critical section problem
     #could solving this by using a semaphore or mutex
-
+    print(serial_comm.readsonicCM)
+    if serial_comm.readSonicCM >= 30:
+        while serial_comm.readSonicCM > 10:
+            serial_comm.moveForward(50)
+        serial_comm.stop_robot()
 
     # stop and end program
 
