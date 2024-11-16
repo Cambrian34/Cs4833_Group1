@@ -10,9 +10,9 @@ brickpi_sensors = mySerCommLibrary.Sensors()
 
 #thread for color detectioncolor_thread = threading.Thread(target=check_color)
 
-threading.Thread(target=lib.check_color).start()
-threading.Thread(target=lib.check_gyro).start()
-
+# threading.Thread(target=lib.check_gyro).start()
+color_thread = threading.Thread(target=brickpi_sensors.check_color)
+color_thread.start()
 
 # Check touch sensor to start the program
 print("Press touch sensor on port 1 to start program")
@@ -27,9 +27,13 @@ while not parked:
     # move forward
 
     # TODO: check space color thread
-    if serial_comm.color_detected == "Blue":
-        serial_comm.stop_robot()
-        break
+    while True:
+        print(brickpi_sensors.color_detected)
+        if brickpi_sensors.color_detected == "Blue":
+            serial_comm.stop_robot()
+            break
+
+    print("begin turn")
 
     # stop and begin turn sequence
 
@@ -45,4 +49,6 @@ while not parked:
     # stop and end program
 
     break
+
+color_thread.join()
 
