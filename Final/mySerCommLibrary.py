@@ -142,6 +142,16 @@ class SerialComm:
         print(ack)
         return ack
 
+    def flashRed(self):
+        print("Flash Red")
+        ack = self.cmdSend(19)
+        print(ack)
+
+    def flashGreen(self):
+        print("Flash Green")
+        ack = self.cmdSend(18)
+        print(ack)
+
     def readSonicCM(self, port):
         # print("Read Sonic CM")
         ack = self.cmdSend(4)
@@ -204,4 +214,7 @@ class Sensors:
                 time.sleep(0.1)
             except brickpi3.SensorError as error:
                 print(error)
+
+    def reset_sensors(self):
+        self.BP.reset_all()
     
